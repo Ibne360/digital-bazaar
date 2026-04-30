@@ -24,8 +24,8 @@ export default async function RegisterPage() {
               <p className="font-bold">Digital Bazaar</p>
             </div>
             <h1 className="mt-12 text-3xl font-bold leading-tight">
-              Join 12,000+ creators getting <br />
-              wholesale digital products.
+              Buy digital products <br />
+              instantly with your wallet.
             </h1>
             <ul className="mt-6 space-y-2 text-sm text-white/85">
               {[

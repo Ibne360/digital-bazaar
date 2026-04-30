@@ -5,7 +5,7 @@ import { actionLogin } from "@/app/actions";
 import { Input, Label } from "@/components/ui/input";
 import { SubmitButton } from "@/components/submit-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ShieldCheck, Zap, Wallet } from "lucide-react";
 
 export const metadata = { title: "Sign in" };
 
@@ -36,18 +36,20 @@ export default async function LoginPage({
               digital product instantly with your wallet balance.
             </p>
           </div>
-          <div className="space-y-2 rounded-xl border border-white/20 bg-white/10 p-4 text-sm backdrop-blur">
-            <p className="font-semibold">Try the demo</p>
-            <p className="text-white/80">
-              <span className="font-medium">Admin:</span> admin@bazaar.dev / admin123
-            </p>
-            <p className="text-white/80">
-              <span className="font-medium">Reseller:</span> reseller@bazaar.dev / reseller123
-            </p>
-            <p className="text-white/80">
-              <span className="font-medium">User:</span> demo@bazaar.dev / user1234
-            </p>
-          </div>
+          <ul className="space-y-3 text-sm text-white/85">
+            {[
+              { Icon: Wallet, text: "Wallet-based instant checkout" },
+              { Icon: Zap, text: "Sub-60 second digital delivery" },
+              { Icon: ShieldCheck, text: "Full warranty on every product" },
+            ].map(({ Icon, text }) => (
+              <li key={text} className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/15">
+                  <Icon className="h-3.5 w-3.5" />
+                </span>
+                {text}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <Card className="self-center">
@@ -68,7 +70,7 @@ export default async function LoginPage({
                   type="email"
                   required
                   autoComplete="email"
-                  defaultValue="demo@bazaar.dev"
+                  placeholder="you@example.com"
                 />
               </div>
               <div className="space-y-2">
@@ -79,7 +81,6 @@ export default async function LoginPage({
                   type="password"
                   required
                   autoComplete="current-password"
-                  defaultValue="user1234"
                 />
               </div>
               <SubmitButton variant="gradient" size="lg" className="w-full">

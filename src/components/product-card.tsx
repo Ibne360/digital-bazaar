@@ -8,7 +8,6 @@ import {
   Zap,
   Flame,
   Lock,
-  Crown,
   Gift,
   ShoppingCart,
 } from "lucide-react";
@@ -33,23 +32,17 @@ const BADGE_META: Record<
   instant: { label: "Instant", variant: "instant", Icon: Zap },
   hot: { label: "Hot", variant: "hot", Icon: Flame },
   limited: { label: "Limited", variant: "limited", Icon: Lock },
-  wholesale: { label: "Wholesale", variant: "wholesale", Icon: Crown },
   new: { label: "New", variant: "new", Icon: Gift },
 };
 
 export function ProductCard({
   product,
-  showWholesale,
   stock,
 }: {
   product: Product;
-  showWholesale?: boolean;
   stock?: number;
 }) {
   const CategoryIcon = CATEGORY_ICONS[product.categoryId] || Sparkles;
-  const discountPct = Math.round(
-    ((product.retailPrice - product.wholesalePrice) / product.retailPrice) * 100,
-  );
 
   return (
     <Card className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border-border/70 bg-card/95 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10">
@@ -108,37 +101,11 @@ export function ProductCard({
 
         <div className="mt-auto pt-4">
           <div className="min-w-0">
-            {showWholesale ? (
-              <>
-                <p className="text-[10px] uppercase tracking-[0.24em] text-violet-500">
-                  Wholesale
-                </p>
-                <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <span className="text-2xl font-bold tracking-tight">
-                    {formatCurrency(product.wholesalePrice)}
-                  </span>
-                  <span className="text-xs text-muted-foreground line-through">
-                    {formatCurrency(product.retailPrice)}
-                  </span>
-                  {discountPct > 0 ? (
-                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-300">
-                      Save {discountPct}%
-                    </span>
-                  ) : null}
-                </div>
-              </>
-            ) : (
-              <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                <span className="text-2xl font-bold tracking-tight">
-                  {formatCurrency(product.retailPrice)}
-                </span>
-                {discountPct > 0 ? (
-                  <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-300">
-                    Save {discountPct}%
-                  </span>
-                ) : null}
-              </div>
-            )}
+            <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span className="text-2xl font-bold tracking-tight">
+                {formatCurrency(product.retailPrice)}
+              </span>
+            </div>
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-2">

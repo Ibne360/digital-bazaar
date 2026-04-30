@@ -22,8 +22,6 @@ const badgeVariants = cva(
           "border-transparent bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
         limited:
           "border-transparent bg-rose-500/15 text-rose-600 dark:text-rose-300",
-        wholesale:
-          "border-transparent bg-violet-500/15 text-violet-600 dark:text-violet-300",
         new: "border-transparent bg-cyan-500/15 text-cyan-600 dark:text-cyan-300",
       },
     },

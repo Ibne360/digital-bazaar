@@ -48,8 +48,7 @@ export default async function AdminProductsPage() {
                 <tr className="border-b border-border bg-muted/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <th className="px-4 py-3">Product</th>
                   <th className="px-4 py-3">Category</th>
-                  <th className="px-4 py-3">Retail</th>
-                  <th className="px-4 py-3">Wholesale</th>
+                  <th className="px-4 py-3">Price</th>
                   <th className="px-4 py-3">Stock</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3 text-right">Actions</th>
@@ -94,9 +93,6 @@ export default async function AdminProductsPage() {
                       </td>
                       <td className="px-4 py-3 font-medium">
                         {formatCurrency(p.retailPrice)}
-                      </td>
-                      <td className="px-4 py-3 text-muted-foreground">
-                        {formatCurrency(p.wholesalePrice)}
                       </td>
                       <td className="px-4 py-3">
                         <Badge

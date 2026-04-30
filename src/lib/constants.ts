@@ -28,7 +28,6 @@ export const PRODUCT_BADGES = {
   INSTANT: "instant",
   LIMITED: "limited",
   HOT: "hot",
-  WHOLESALE: "wholesale",
   NEW: "new",
 } as const;
 

@@ -6,7 +6,6 @@ import {
 import { getCouponByCode, getProductsByIds } from "./supabase/queries";
 import type { CartLine, Product, User } from "./types";
 
-/** Always return retail price — no wholesale tier. */
 export function priceFor(product: Product, _user: User | null): number {
   return product.retailPrice;
 }

@@ -283,7 +283,6 @@ export async function actionSaveProduct(formData: FormData) {
   ).trim();
   const description = String(formData.get("description") || "").trim();
   const retailPrice = Number(formData.get("retailPrice") || 0);
-  const wholesalePrice = Number(formData.get("wholesalePrice") || 0);
   const duration = String(formData.get("duration") || "").trim();
   const warranty = String(formData.get("warranty") || "").trim();
   const deliveryType = String(
@@ -314,7 +313,6 @@ export async function actionSaveProduct(formData: FormData) {
     short_description: shortDescription,
     description,
     retail_price: retailPrice,
-    wholesale_price: wholesalePrice,
     duration,
     warranty,
     delivery_type: deliveryType,

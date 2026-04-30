@@ -13,7 +13,6 @@ import {
   ShoppingCart,
   Flame,
   Lock,
-  Crown,
   Gift,
   CheckCircle2,
 } from "lucide-react";
@@ -43,7 +42,6 @@ const BADGE_META: Record<string, { label: string; variant: any; Icon: React.Comp
   instant: { label: "Instant Delivery", variant: "instant", Icon: Zap },
   hot: { label: "Hot Seller", variant: "hot", Icon: Flame },
   limited: { label: "Limited Stock", variant: "limited", Icon: Lock },
-  wholesale: { label: "Wholesale Available", variant: "wholesale", Icon: Crown },
   new: { label: "New Arrival", variant: "new", Icon: Gift },
 };
 

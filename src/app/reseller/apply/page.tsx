@@ -1,5 +1,2 @@
 import { redirect } from "next/navigation";
-
-export default function ResellerApplyPage() {
-  redirect("/reseller");
-}
+export default function ResellerApplyPage() { redirect("/dashboard"); }

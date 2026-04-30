@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export function UserMenu({
   user,
 }: {
-  user: { name: string; email: string; role: "user" | "reseller" | "admin" };
+  user: { name: string; email: string; role: "user" | "admin" };
 }) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -63,9 +63,7 @@ export function UserMenu({
                 "mt-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
                 user.role === "admin"
                   ? "bg-rose-500/15 text-rose-600 dark:text-rose-300"
-                  : user.role === "reseller"
-                    ? "bg-violet-500/15 text-violet-600 dark:text-violet-300"
-                    : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
+                  : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
               )}
             >
               {user.role}
@@ -77,9 +75,6 @@ export function UserMenu({
             </MenuItem>
             <MenuItem href="/dashboard/orders" onClick={() => setOpen(false)} icon={<UserIcon className="h-4 w-4" />}>
               Orders & Subs
-            </MenuItem>
-            <MenuItem href="/reseller" onClick={() => setOpen(false)} icon={<Wallet className="h-4 w-4" />}>
-              Reseller Hub
             </MenuItem>
             {user.role === "admin" ? (
               <MenuItem href="/admin" onClick={() => setOpen(false)} icon={<ShieldCheck className="h-4 w-4" />}>

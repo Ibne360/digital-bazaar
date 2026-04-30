@@ -7,7 +7,6 @@ import {
   ShoppingBag,
   Wallet,
   HelpCircle,
-  Crown,
   ShieldCheck,
   Settings,
 } from "lucide-react";
@@ -16,14 +15,13 @@ import type { UserRole } from "@/lib/types";
 
 export interface SidebarUser {
   role: UserRole;
-  resellerStatus?: "none" | "pending" | "approved" | "rejected";
 }
 
 interface NavItem {
   href: string;
   label: string;
   Icon: React.ComponentType<{ className?: string }>;
-  roles?: ("user" | "reseller" | "admin")[];
+  roles?: ("user" | "admin")[];
   exact?: boolean;
 }
 
@@ -34,19 +32,12 @@ const USER_NAV: NavItem[] = [
   { href: "/dashboard/support", label: "Support", Icon: HelpCircle },
 ];
 
-const RESELLER_NAV: NavItem[] = [
-  { href: "/reseller", label: "Reseller hub", Icon: Crown, exact: true },
-  { href: "/reseller/catalog", label: "Wholesale catalog", Icon: Crown },
-  { href: "/reseller/withdraw", label: "Withdraw", Icon: Wallet },
-];
-
 const ADMIN_NAV: NavItem[] = [
   { href: "/admin", label: "Overview", Icon: ShieldCheck, exact: true },
   { href: "/admin/products", label: "Products", Icon: ShoppingBag },
   { href: "/admin/deposits", label: "Deposits", Icon: Wallet },
-  { href: "/admin/withdraws", label: "Withdrawals", Icon: Wallet },
   { href: "/admin/orders", label: "Orders", Icon: ShoppingBag },
-  { href: "/admin/users", label: "Users & resellers", Icon: Settings },
+  { href: "/admin/users", label: "Users", Icon: Settings },
   { href: "/admin/tickets", label: "Support tickets", Icon: HelpCircle },
 ];
 
@@ -55,7 +46,7 @@ export function DashboardSidebar({
   variant = "user",
 }: {
   user: SidebarUser;
-  variant?: "user" | "reseller" | "admin";
+  variant?: "user" | "admin";
 }) {
   const pathname = usePathname() || "";
   let nav: NavItem[];
@@ -65,10 +56,6 @@ export function DashboardSidebar({
     nav = ADMIN_NAV;
     title = "Admin Console";
     subtitle = "Operations & analytics";
-  } else if (variant === "reseller") {
-    nav = RESELLER_NAV;
-    title = "Reseller Hub";
-    subtitle = "Wholesale, earnings & withdrawals";
   } else {
     nav = USER_NAV;
     title = "My Dashboard";
@@ -78,9 +65,6 @@ export function DashboardSidebar({
   const cross: { label: string; href: string; Icon: NavItem["Icon"] }[] = [];
   if (variant !== "user") {
     cross.push({ label: "User dashboard", href: "/dashboard", Icon: LayoutDashboard });
-  }
-  if (variant !== "reseller" && (user.role === "reseller" || user.resellerStatus === "approved")) {
-    cross.push({ label: "Reseller hub", href: "/reseller", Icon: Crown });
   }
   if (variant !== "admin" && user.role === "admin") {
     cross.push({ label: "Admin console", href: "/admin", Icon: ShieldCheck });

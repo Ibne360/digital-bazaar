@@ -15,9 +15,7 @@ import {
   LayoutDashboard,
   ShoppingCart,
   Search,
-  ArrowDownToLine,
   Receipt,
-  Crown,
   HelpCircle,
   LogOut,
   Home,
@@ -93,14 +91,11 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
     }
   }
 
-  const isReseller = user?.role === "reseller";
   const isAdmin = user?.role === "admin";
-  const roleLabel = isAdmin ? "Admin" : isReseller ? "Reseller" : "Member";
+  const roleLabel = isAdmin ? "Admin" : "Member";
   const roleClass = isAdmin
     ? "bg-rose-500/20 text-rose-100 ring-rose-300/40"
-    : isReseller
-      ? "bg-amber-500/20 text-amber-100 ring-amber-300/40"
-      : "bg-emerald-500/20 text-emerald-100 ring-emerald-300/40";
+    : "bg-emerald-500/20 text-emerald-100 ring-emerald-300/40";
 
   return (
     <div ref={containerRef} className="relative md:hidden">
@@ -185,7 +180,7 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
               <div className="relative mt-4 rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur">
                 <p className="text-lg font-semibold leading-tight">Everything important in one place</p>
                 <p className="mt-1 text-sm text-white/75">
-                  Sign in to reach wallet, orders, and reseller tools faster.
+                  Sign in to access your wallet, orders, and support.
                 </p>
                 <div className="mt-4 grid grid-cols-2 gap-2">
                   <Link
@@ -293,10 +288,10 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
                     onClick={close}
                   />
                   <QuickAction
-                    href={isReseller ? "/reseller" : "/reseller/apply"}
-                    Icon={Crown}
-                    label={isReseller ? "Reseller" : "Apply"}
-                    gradient="from-amber-500 to-orange-500"
+                    href="/dashboard/deposit"
+                    Icon={Wallet}
+                    label="Top up"
+                    gradient="from-emerald-500 to-teal-600"
                     onClick={close}
                   />
                 </div>
@@ -312,13 +307,6 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
                     Icon={ShoppingCart}
                     iconBg="bg-violet-500/15 text-violet-600 dark:text-violet-300"
                     label={`Cart${cartCount > 0 ? ` (${cartCount})` : ""}`}
-                    onClick={close}
-                  />
-                  <DrawerLink
-                    href="/reseller"
-                    Icon={Crown}
-                    iconBg="bg-amber-500/15 text-amber-600 dark:text-amber-300"
-                    label="Reseller program"
                     onClick={close}
                   />
                 </div>
@@ -352,15 +340,6 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
                     label="Wallet and deposit"
                     onClick={close}
                   />
-                  {isReseller ? (
-                    <DrawerLink
-                      href="/reseller/withdraw"
-                      Icon={ArrowDownToLine}
-                      iconBg="bg-amber-500/15 text-amber-600 dark:text-amber-300"
-                      label="Withdraw earnings"
-                      onClick={close}
-                    />
-                  ) : null}
                   {isAdmin ? (
                     <DrawerLink
                       href="/admin"

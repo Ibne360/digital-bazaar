@@ -27,13 +27,11 @@ export const metadata: Metadata = {
   description: SITE.description,
   keywords: [
     "digital products",
-    "wholesale subscriptions",
     "ChatGPT Plus",
     "Canva Pro",
     "Gemini Pro",
     "GitHub Copilot",
     "Cursor Pro",
-    "reseller",
   ],
 };
 

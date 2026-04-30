@@ -1,8 +1,8 @@
 export const SITE = {
   name: "Digital Bazaar",
-  tagline: "Get Digital Products at Wholesale Prices",
+  tagline: "Your Trusted Digital Products Store",
   description:
-    "The premium marketplace for AI subscriptions, design tools, dev kits, and digital credits — instant delivery, lifetime warranty, wholesale tier for resellers.",
+    "The premium marketplace for AI subscriptions, design tools, dev kits, and digital credits — instant delivery, lifetime warranty.",
   url: "https://digital-bazaar.local",
   currency: "USD" as const,
 };
@@ -10,20 +10,17 @@ export const SITE = {
 /** Public WhatsApp group invite link for live customer support. */
 export const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/FoDA5kHvG4UBE6pBdgaXpv";
 
-export const RESELLER_COMMISSION_RATE = 0.1;
-/** Wallet uses USD. Minimum deposit / withdraw expressed in USD. */
+/** Wallet uses USD. Minimum deposit expressed in USD. */
 export const MIN_DEPOSIT = 1; // 1 USD
-export const MIN_WITHDRAW = 5; // 5 USD
 /** BDT to USD conversion rate for Bangladeshi deposit methods. */
 export const BDT_PER_USD = 125;
-/** Equivalent BDT minimums for UX hints. */
+/** Equivalent BDT minimum for UX hints. */
 export const MIN_DEPOSIT_BDT = MIN_DEPOSIT * BDT_PER_USD; // 125 BDT
-export const MIN_WITHDRAW_BDT = MIN_WITHDRAW * BDT_PER_USD; // 625 BDT
 
 export const HERO_BADGES = [
   "Instant Delivery",
   "100% Warranty",
-  "Wholesale Available",
+  "Secure Checkout",
   "24/7 Support",
 ];
 

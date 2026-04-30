@@ -82,16 +82,11 @@ export default async function ProductDetailPage({
   const Icon = CATEGORY_ICONS[product.categoryId] || Sparkles;
   const stock = stockMap[product.id] ?? 0;
   const price = priceFor(product, user);
-  const isReseller =
-    user?.role === "reseller" && user.resellerStatus === "approved";
-  const savings = product.retailPrice - product.wholesalePrice;
-  const savingsPct = Math.round((savings / product.retailPrice) * 100);
-
   const related = allProducts
     .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
     .slice(0, 4);
 
-  const buyNow = actionBuyNow.bind(null, product.id, undefined);
+  const buyNow = actionBuyNow.bind(null, product.id);
   const addToCart = actionAddToCart.bind(null, product.id, 1);
 
   return (
@@ -187,19 +182,6 @@ export default async function ProductDetailPage({
             <span className="text-3xl font-bold tracking-tight sm:text-4xl">
               {formatCurrency(price)}
             </span>
-            {!isReseller && savings > 0 ? (
-              <span className="text-sm text-muted-foreground">
-                or <span className="font-semibold text-violet-500">{formatCurrency(product.wholesalePrice)}</span> as reseller
-              </span>
-            ) : null}
-            {isReseller ? (
-              <>
-                <span className="text-sm text-muted-foreground line-through">
-                  {formatCurrency(product.retailPrice)}
-                </span>
-                <Badge variant="success">-{savingsPct}% wholesale</Badge>
-              </>
-            ) : null}
           </div>
 
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground sm:gap-x-4">
@@ -335,7 +317,6 @@ export default async function ProductDetailPage({
               <ProductCard
                 key={p.id}
                 product={p}
-                showWholesale={isReseller}
                 stock={stockMap[p.id] ?? 0}
               />
             ))}

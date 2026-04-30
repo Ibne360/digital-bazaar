@@ -12,7 +12,7 @@ export default async function DashboardLayout({
     <div className="container py-8">
       <div className="flex flex-col gap-6 lg:flex-row">
         <DashboardSidebar
-          user={{ role: user.role, resellerStatus: user.resellerStatus }}
+          user={{ role: user.role }}
           variant="user"
         />
         <div className="flex-1 min-w-0">{children}</div>

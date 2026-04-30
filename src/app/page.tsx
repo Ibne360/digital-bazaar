@@ -22,9 +22,6 @@ export default async function HomePage({
     getAllProducts(),
     getStockCountByProduct(),
   ]);
-  const showWholesale =
-    user?.role === "reseller" && user.resellerStatus === "approved";
-
   const category = searchParams?.category;
   const q = (searchParams?.q || "").trim().toLowerCase();
 
@@ -78,9 +75,6 @@ export default async function HomePage({
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/10 px-3 py-2 backdrop-blur">
               Trusted support team
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/10 px-3 py-2 backdrop-blur">
-              Reseller ready pricing
             </div>
           </div>
         </div>
@@ -145,7 +139,6 @@ export default async function HomePage({
             <ProductCard
               key={p.id}
               product={p}
-              showWholesale={showWholesale}
               stock={stockMap[p.id] ?? 0}
             />
           ))}

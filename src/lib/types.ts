@@ -1,4 +1,4 @@
-export type UserRole = "user" | "reseller" | "admin";
+export type UserRole = "user" | "admin";
 
 export interface User {
   id: string;
@@ -6,10 +6,7 @@ export interface User {
   name: string;
   passwordHash: string;
   role: UserRole;
-  resellerStatus?: "none" | "pending" | "approved" | "rejected";
   walletBalance: number;
-  totalEarned: number;
-  referralCode?: string;
   createdAt: string;
 }
 
@@ -46,7 +43,6 @@ export interface Product {
   shortDescription: string;
   description: string;
   retailPrice: number;
-  wholesalePrice: number;
   duration: string;
   warranty: string;
   deliveryType: DeliveryType;
@@ -90,7 +86,6 @@ export interface Order {
   status: OrderStatus;
   walletBalanceBefore: number;
   walletBalanceAfter: number;
-  isReseller: boolean;
   couponCode?: string;
   createdAt: string;
   paidAt?: string;
@@ -156,15 +151,6 @@ export interface Coupon {
   expiresAt?: string;
 }
 
-export interface ReferralEvent {
-  id: string;
-  referrerId: string;
-  orderId: string;
-  amount: number;
-  commission: number;
-  createdAt: string;
-}
-
 export interface Database {
   users: User[];
   categories: Category[];
@@ -175,7 +161,6 @@ export interface Database {
   withdraws: Withdraw[];
   tickets: SupportTicket[];
   coupons: Coupon[];
-  referrals: ReferralEvent[];
 }
 
 export interface SessionPayload {

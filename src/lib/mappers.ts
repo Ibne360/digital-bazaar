@@ -11,7 +11,6 @@ import type {
   Order,
   OrderItem,
   Product,
-  ReferralEvent,
   SupportTicket,
   User,
   Withdraw,
@@ -25,7 +24,6 @@ import type {
   OrderRow,
   ProductRow,
   ProfileRow,
-  ReferralRow,
   SupportTicketRow,
   WithdrawRow,
 } from "./supabase/types";
@@ -44,10 +42,7 @@ export function mapProfileToUser(row: ProfileRow): User {
     name: row.name,
     passwordHash: "", // not used in Supabase Auth flow; kept for type compat
     role: row.role,
-    resellerStatus: row.reseller_status,
     walletBalance: num(row.wallet_balance),
-    totalEarned: num(row.total_earned),
-    referralCode: row.referral_code ?? undefined,
     createdAt: row.created_at,
   };
 }
@@ -72,7 +67,6 @@ export function mapProduct(row: ProductRow): Product {
     shortDescription: row.short_description,
     description: row.description,
     retailPrice: num(row.retail_price),
-    wholesalePrice: num(row.wholesale_price),
     duration: row.duration,
     warranty: row.warranty,
     deliveryType: row.delivery_type,
@@ -124,7 +118,6 @@ export function mapOrder(
     status: row.status,
     walletBalanceBefore: num(row.wallet_balance_before),
     walletBalanceAfter: num(row.wallet_balance_after),
-    isReseller: row.is_reseller,
     couponCode: row.coupon_code ?? undefined,
     createdAt: row.created_at,
     paidAt: row.paid_at ?? undefined,
@@ -187,13 +180,3 @@ export function mapCoupon(row: CouponRow): Coupon {
   };
 }
 
-export function mapReferral(row: ReferralRow): ReferralEvent {
-  return {
-    id: row.id,
-    referrerId: row.referrer_id,
-    orderId: row.order_id,
-    amount: num(row.amount),
-    commission: num(row.commission),
-    createdAt: row.created_at,
-  };
-}

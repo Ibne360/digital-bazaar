@@ -27,7 +27,7 @@ export const metadata = { title: "Cart" };
 export default async function CartPage({
   searchParams,
 }: {
-  searchParams?: { coupon?: string; ref?: string };
+  searchParams?: { coupon?: string };
 }) {
   const user = await getCurrentUser();
   const lines = readCart();
@@ -61,8 +61,7 @@ export default async function CartPage({
     <div className="container py-5 sm:py-10">
       <h1 className="text-xl font-bold tracking-tight sm:text-3xl md:text-4xl">Your cart</h1>
       <p className="mt-1 text-xs text-muted-foreground sm:mt-2 sm:text-base">
-        {view.lines.length} item{view.lines.length === 1 ? "" : "s"} ·
-        {view.isReseller ? " Wholesale tier" : " Retail pricing"}
+        {view.lines.length} item{view.lines.length === 1 ? "" : "s"}
       </p>
 
       <div className="mt-6 grid gap-6 sm:mt-8 lg:grid-cols-3 lg:gap-8">
@@ -183,18 +182,6 @@ export default async function CartPage({
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="referralCode" className="text-xs">
-                  Reseller referral code (optional)
-                </Label>
-                <Input
-                  id="referralCode"
-                  name="referralCode"
-                  placeholder="e.g. TOPDEAL"
-                  defaultValue={searchParams?.ref || ""}
-                />
-              </div>
-
               {user ? (
                 <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs">
                   <div className="flex items-center justify-between font-medium text-emerald-700 dark:text-emerald-300">
@@ -261,12 +248,6 @@ export default async function CartPage({
         </Card>
       </div>
 
-      {view.isReseller ? (
-        <Badge variant="wholesale" className="mt-6">
-          <Sparkles className="h-3 w-3" />
-          Wholesale pricing applied
-        </Badge>
-      ) : null}
     </div>
   );
 }

@@ -3,12 +3,10 @@ import {
   Wallet,
   ShoppingBag,
   ArrowUpRight,
-  Crown,
   CheckCircle2,
   XCircle,
   Clock,
   Plus,
-  Sparkles,
 } from "lucide-react";
 import { requireUser } from "@/lib/auth";
 import {
@@ -62,9 +60,7 @@ export default async function DashboardPage() {
                 {formatCurrency(user.walletBalance)}
               </p>
               <p className="mt-1 text-xs text-white/80 sm:text-sm">
-                {user.role === "reseller"
-                  ? "You see wholesale prices on every product."
-                  : "Top up to checkout instantly with your wallet."}
+                Top up to checkout instantly with your wallet.
               </p>
               <div className="mt-4 flex flex-wrap gap-2 sm:mt-5">
                 <Link
@@ -102,14 +98,10 @@ export default async function DashboardPage() {
               </div>
               <div className="col-span-2 rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur sm:rounded-xl sm:p-3">
                 <p className="text-[10px] uppercase tracking-wider text-white/70 sm:text-xs">
-                  {user.role === "reseller"
-                    ? "Reseller earnings"
-                    : "Reseller program"}
+                  Total orders
                 </p>
                 <p className="mt-0.5 text-base font-bold sm:mt-1 sm:text-lg">
-                  {user.role === "reseller"
-                    ? formatCurrency(user.totalEarned)
-                    : "Apply for wholesale"}
+                  {orders.length}
                 </p>
               </div>
             </div>
@@ -117,7 +109,7 @@ export default async function DashboardPage() {
         </div>
       </Card>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <Stat
           label="Orders"
           value={orders.length}
@@ -128,44 +120,8 @@ export default async function DashboardPage() {
           value={pendingDeposits}
           icon={<Clock className="h-4 w-4" />}
         />
-        <Stat
-          label="Reseller status"
-          value={
-            user.role === "reseller"
-              ? "Approved"
-              : user.resellerStatus === "pending"
-                ? "Pending review"
-                : "Not enrolled"
-          }
-          icon={<Crown className="h-4 w-4" />}
-        />
       </div>
 
-      {/* Reseller CTA if not enrolled */}
-      {user.role !== "reseller" && user.role !== "admin" ? (
-        <Card>
-          <CardContent className="flex flex-col items-start justify-between gap-3 p-4 sm:flex-row sm:items-center sm:gap-4 sm:p-6">
-            <div>
-              <Badge variant="wholesale" className="mb-2">
-                <Sparkles className="h-3 w-3" />
-                Unlock 25-45% off retail
-              </Badge>
-              <p className="font-semibold">Become a reseller</p>
-              <p className="text-sm text-muted-foreground">
-                Get wholesale pricing, generate referral links, earn 10% on every
-                referred sale, and withdraw to bKash/Bank/USDT.
-              </p>
-            </div>
-            <Link
-              href="/reseller/apply"
-              className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "w-full sm:w-auto")}
-            >
-              Apply now
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </CardContent>
-        </Card>
-      ) : null}
 
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         <Card>

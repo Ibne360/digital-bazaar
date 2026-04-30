@@ -6,11 +6,8 @@ import {
 import { getCouponByCode, getProductsByIds } from "./supabase/queries";
 import type { CartLine, Product, User } from "./types";
 
-/** Decide unit price based on whether the user is an approved reseller. */
-export function priceFor(product: Product, user: User | null): number {
-  if (user && user.role === "reseller" && user.resellerStatus === "approved") {
-    return product.wholesalePrice;
-  }
+/** Always return retail price — no wholesale tier. */
+export function priceFor(product: Product, _user: User | null): number {
   return product.retailPrice;
 }
 
@@ -20,14 +17,12 @@ export interface CartView {
   discount: number;
   couponCode?: string;
   total: number;
-  isReseller: boolean;
 }
 
 /**
  * Build a cart view from raw cart cookie lines + Supabase product/coupon data.
  * - Filters out invalid product IDs.
  * - Applies coupon if present and active.
- * - Applies wholesale pricing for approved resellers.
  */
 export async function buildCartView(
   rawLines: CartLine[],
@@ -66,21 +61,13 @@ export async function buildCartView(
     }
   }
   const total = Math.max(0, subtotal - discount);
-  return {
-    lines,
-    subtotal,
-    discount,
-    couponCode: appliedCode,
-    total,
-    isReseller: user?.role === "reseller" && user.resellerStatus === "approved",
-  };
+  return { lines, subtotal, discount, couponCode: appliedCode, total };
 }
 
 export interface CheckoutInput {
   userId: string;
   rawLines: CartLine[];
   couponCode?: string;
-  referralCode?: string;
 }
 
 export class InsufficientFundsError extends Error {
@@ -107,7 +94,7 @@ export async function checkout(input: CheckoutInput): Promise<string> {
   const sb = createSupabaseServerClient();
   const { data: profile } = await sb
     .from("profiles")
-    .select("wallet_balance, role, reseller_status")
+    .select("wallet_balance, role")
     .eq("id", input.userId)
     .maybeSingle();
   if (!profile) throw new Error("User not found");
@@ -118,10 +105,7 @@ export async function checkout(input: CheckoutInput): Promise<string> {
     name: "",
     passwordHash: "",
     role: (profile as { role: User["role"] }).role,
-    resellerStatus: (profile as { reseller_status: User["resellerStatus"] })
-      .reseller_status,
     walletBalance: Number((profile as { wallet_balance: number }).wallet_balance),
-    totalEarned: 0,
     createdAt: "",
   };
   const view = await buildCartView(input.rawLines, userStub, input.couponCode);
@@ -140,7 +124,7 @@ export async function checkout(input: CheckoutInput): Promise<string> {
       quantity: l.quantity,
     })),
     p_coupon_code: input.couponCode ?? null,
-    p_referral_code: input.referralCode ?? null,
+    p_referral_code: null,
   });
 
   if (error) {

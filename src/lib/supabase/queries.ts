@@ -17,7 +17,6 @@ import type {
   OrderRow,
   ProductRow,
   ProfileRow,
-  ReferralRow,
   SupportTicketRow,
   WithdrawRow,
 } from "./types";
@@ -29,7 +28,6 @@ import {
   mapOrder,
   mapProduct,
   mapProfileToUser,
-  mapReferral,
   mapTicket,
   mapWithdraw,
 } from "../mappers";
@@ -40,7 +38,6 @@ import type {
   DigitalItem,
   Order,
   Product,
-  ReferralEvent,
   SupportTicket,
   User,
   Withdraw,
@@ -224,22 +221,6 @@ export async function getProfilesByIds(ids: string[]): Promise<User[]> {
   return ((data ?? []) as ProfileRow[]).map(mapProfileToUser);
 }
 
-export async function getResellerByReferralCode(
-  code: string,
-): Promise<User | null> {
-  if (!code) return null;
-  const sb = createSupabaseAdminClient();
-  const { data, error } = await sb
-    .from("profiles")
-    .select("*")
-    .ilike("referral_code", code)
-    .eq("role", "reseller")
-    .eq("reseller_status", "approved")
-    .maybeSingle();
-  if (error) throw error;
-  return data ? mapProfileToUser(data as ProfileRow) : null;
-}
-
 // ============================================================================
 // Orders
 // ============================================================================
@@ -390,18 +371,3 @@ export async function getAllTickets(): Promise<SupportTicket[]> {
   return ((data ?? []) as SupportTicketRow[]).map(mapTicket);
 }
 
-// ============================================================================
-// Referrals
-// ============================================================================
-export async function getReferralsForUser(
-  userId: string,
-): Promise<ReferralEvent[]> {
-  const sb = createSupabaseServerClient();
-  const { data, error } = await sb
-    .from("referrals")
-    .select("*")
-    .eq("referrer_id", userId)
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return ((data ?? []) as ReferralRow[]).map(mapReferral);
-}

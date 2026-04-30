@@ -83,9 +83,7 @@ export async function registerUser(input: {
       name,
       passwordHash: "",
       role: "user",
-      resellerStatus: "none",
       walletBalance: 0,
-      totalEarned: 0,
       createdAt: new Date().toISOString(),
     };
   }

@@ -62,9 +62,6 @@ export default async function AdminOrdersPage() {
                         {formatCurrency(o.walletBalanceAfter)}
                       </p>
                       <div className="mt-1 flex flex-wrap items-center justify-end gap-1">
-                        {o.isReseller ? (
-                          <Badge variant="wholesale">Wholesale</Badge>
-                        ) : null}
                         <Badge
                           variant={
                             o.status === "delivered"

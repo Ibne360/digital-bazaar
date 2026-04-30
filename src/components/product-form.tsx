@@ -30,7 +30,6 @@ const ALL_BADGES = [
   { id: "instant", label: "Instant Delivery" },
   { id: "hot", label: "Hot Seller" },
   { id: "limited", label: "Limited Stock" },
-  { id: "wholesale", label: "Wholesale Available" },
   { id: "new", label: "New Arrival" },
 ];
 
@@ -103,24 +102,6 @@ export function ProductForm({
                   step="0.01"
                   required
                   defaultValue={product?.retailPrice}
-                  className="pl-7"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="wholesalePrice">Wholesale price (USD)</Label>
-              <div className="relative">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-base font-semibold text-muted-foreground">
-                  $
-                </span>
-                <Input
-                  id="wholesalePrice"
-                  name="wholesalePrice"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  required
-                  defaultValue={product?.wholesalePrice}
                   className="pl-7"
                 />
               </div>

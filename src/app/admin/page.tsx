@@ -9,13 +9,11 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
-  Crown,
   Database,
 } from "lucide-react";
 import {
   getAllOrders,
   getAllDeposits,
-  getAllWithdraws,
   getAllProfiles,
   getAllProducts,
   getProfilesByIds,
@@ -30,11 +28,10 @@ import { cn, formatCurrency, timeAgo } from "@/lib/utils";
 export const metadata = { title: "Admin overview" };
 
 export default async function AdminOverviewPage() {
-  const [orders, deposits, withdraws, users, products, stockMap] =
+  const [orders, deposits, users, products, stockMap] =
     await Promise.all([
       getAllOrders(),
       getAllDeposits(),
-      getAllWithdraws(),
       getAllProfiles(),
       getAllProducts({ includeInactive: true }),
       getStockCountByProduct(),
@@ -46,10 +43,6 @@ export default async function AdminOverviewPage() {
     .filter((d) => d.status === "approved")
     .reduce((s, d) => s + d.amount, 0);
   const pendingDeposits = deposits.filter((d) => d.status === "pending");
-  const pendingWithdraws = withdraws.filter((w) => w.status === "pending");
-  const pendingResellers = users.filter(
-    (u) => u.resellerStatus === "pending",
-  );
   const lowStockProducts = products
     .filter((p) => p.active)
     .map((p) => ({ product: p, count: stockMap[p.id] ?? 0 }))
@@ -68,9 +61,7 @@ export default async function AdminOverviewPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Admin overview</h1>
         <p className="text-muted-foreground">
-          {pendingDeposits.length + pendingWithdraws.length + pendingResellers.length}{" "}
-          pending action
-          {pendingDeposits.length + pendingWithdraws.length + pendingResellers.length === 1 ? "" : "s"}{" "}
+          {pendingDeposits.length} pending deposit{pendingDeposits.length === 1 ? "" : "s"}{" "}
           · {activeProductCount} live products · {users.length} users
         </p>
       </div>
@@ -143,17 +134,10 @@ export default async function AdminOverviewPage() {
           variant="warning"
         />
         <ActionCard
-          icon={<Wallet className="h-4 w-4" />}
-          title="Withdrawals to process"
-          count={pendingWithdraws.length}
-          href="/admin/withdraws"
-          variant="warning"
-        />
-        <ActionCard
-          icon={<Crown className="h-4 w-4" />}
-          title="Reseller applications"
-          count={pendingResellers.length}
-          href="/admin/users?filter=pending"
+          icon={<Users className="h-4 w-4" />}
+          title="Total users"
+          count={users.length}
+          href="/admin/users"
           variant="default"
         />
       </div>
@@ -278,7 +262,7 @@ export default async function AdminOverviewPage() {
             { href: "/admin/products/new", label: "+ Add product" },
             { href: "/admin/products", label: "Manage products" },
             { href: "/admin/deposits", label: "Approve deposits" },
-            { href: "/admin/users", label: "Users & resellers" },
+            { href: "/admin/users", label: "Users" },
             { href: "/admin/orders", label: "Orders" },
           ].map((l) => (
             <Link

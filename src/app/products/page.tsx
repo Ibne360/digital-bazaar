@@ -23,9 +23,6 @@ export default async function ProductsPage({
     getAllProducts(),
     getStockCountByProduct(),
   ]);
-  const showWholesale =
-    user?.role === "reseller" && user.resellerStatus === "approved";
-
   const category = searchParams?.category;
   const q = (searchParams?.q || "").trim().toLowerCase();
 
@@ -116,7 +113,6 @@ export default async function ProductsPage({
             <ProductCard
               key={p.id}
               product={p}
-              showWholesale={showWholesale}
               stock={stockMap[p.id] ?? 0}
             />
           ))}

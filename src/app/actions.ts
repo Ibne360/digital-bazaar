@@ -25,7 +25,6 @@ import type { DepositMethod, Product } from "@/lib/types";
 import {
   MIN_DEPOSIT,
   MIN_DEPOSIT_BDT,
-  MIN_WITHDRAW,
   BDT_PER_USD,
   depositMethodMeta,
 } from "@/lib/constants";
@@ -58,8 +57,6 @@ export async function actionCheckout(formData: FormData) {
   if (!user) redirect("/login?next=/checkout");
 
   const couponCode = (formData.get("couponCode") as string | null) || undefined;
-  const referralCode =
-    (formData.get("referralCode") as string | null) || undefined;
   const lines = readCart();
 
   let orderId: string | null = null;
@@ -68,7 +65,6 @@ export async function actionCheckout(formData: FormData) {
       userId: user.id,
       rawLines: lines,
       couponCode,
-      referralCode,
     });
     clearCart();
   } catch (e) {
@@ -83,7 +79,7 @@ export async function actionCheckout(formData: FormData) {
   redirect(`/checkout/success?order=${orderId}`);
 }
 
-export async function actionBuyNow(productId: string, referralCode?: string) {
+export async function actionBuyNow(productId: string) {
   const user = await getCurrentUser();
   if (!user) redirect(`/login?next=/products/${productId}`);
 
@@ -92,7 +88,6 @@ export async function actionBuyNow(productId: string, referralCode?: string) {
     orderId = await checkout({
       userId: user.id,
       rawLines: [{ productId, quantity: 1 }],
-      referralCode,
     });
   } catch (e) {
     if (e instanceof InsufficientFundsError) {
@@ -195,53 +190,6 @@ export async function actionRejectDeposit(
   revalidatePath("/dashboard", "layout");
 }
 
-export async function actionRequestWithdraw(formData: FormData) {
-  const user = await getCurrentUser();
-  if (!user) redirect("/login?next=/reseller/withdraw");
-  const amount = Number(formData.get("amount") || 0);
-  const method = String(formData.get("method") || "") as DepositMethod;
-  const destination = String(formData.get("destination") || "").trim();
-  if (amount < MIN_WITHDRAW)
-    throw new Error(`Minimum withdraw is ${formatCurrency(MIN_WITHDRAW)}.`);
-  if (!destination) throw new Error("Destination required");
-
-  const sb = createSupabaseServerClient();
-  const { error } = await sb.rpc("request_withdraw", {
-    p_amount: amount,
-    p_method: method,
-    p_destination: destination,
-  });
-  if (error) {
-    if (/insufficient/i.test(error.message))
-      throw new Error("Insufficient balance");
-    throw new Error(error.message);
-  }
-  revalidatePath("/reseller", "layout");
-  revalidatePath("/admin", "layout");
-}
-
-export async function actionApproveWithdraw(withdrawId: string) {
-  await requireAdmin();
-  const sb = createSupabaseServerClient();
-  const { error } = await sb.rpc("approve_withdraw", {
-    p_withdraw_id: withdrawId,
-  });
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin", "layout");
-  revalidatePath("/reseller", "layout");
-}
-
-export async function actionRejectWithdraw(withdrawId: string) {
-  await requireAdmin();
-  const sb = createSupabaseServerClient();
-  const { error } = await sb.rpc("reject_withdraw", {
-    p_withdraw_id: withdrawId,
-  });
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin", "layout");
-  revalidatePath("/reseller", "layout");
-}
-
 export async function actionAdminAdjustBalance(
   userId: string,
   delta: number,
@@ -290,35 +238,6 @@ export async function actionLogout() {
   await destroySession();
   revalidatePath("/", "layout");
   redirect("/");
-}
-
-export async function actionApplyReseller() {
-  const user = await getCurrentUser();
-  if (!user) redirect("/login?next=/reseller/apply");
-  const sb = createSupabaseServerClient();
-  const { error } = await sb
-    .from("profiles")
-    .update({ reseller_status: "pending" })
-    .eq("id", user.id);
-  if (error) throw new Error(error.message);
-  revalidatePath("/reseller", "layout");
-  redirect("/reseller");
-}
-
-export async function actionApproveReseller(userId: string) {
-  await requireAdmin();
-  const sb = createSupabaseServerClient();
-  const { error } = await sb.rpc("approve_reseller", { p_user_id: userId });
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin", "layout");
-}
-
-export async function actionRejectReseller(userId: string) {
-  await requireAdmin();
-  const sb = createSupabaseServerClient();
-  const { error } = await sb.rpc("reject_reseller", { p_user_id: userId });
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin", "layout");
 }
 
 export async function actionCreateTicket(formData: FormData) {

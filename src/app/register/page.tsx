@@ -31,7 +31,7 @@ export default async function RegisterPage() {
               {[
                 "Wallet-based instant checkout",
                 "BDT deposits via bKash / Nagad / Rocket / Bank / Crypto",
-                "Apply for reseller tier — 25-45% off retail",
+                "Instant delivery to your dashboard",
                 "Full warranty on every product",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-2">

@@ -47,7 +47,7 @@ export default async function HomePage({
 
   return (
     <div className="container py-6 sm:py-10">
-      <div className="mb-5 flex flex-col items-start gap-3 sm:mb-7 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+      <div className="mb-5 flex items-start justify-between gap-3 sm:mb-7 sm:items-end sm:gap-6">
         <div className="min-w-0">
           <Badge variant="outline" className="mb-2">
             <Package className="h-3 w-3" />

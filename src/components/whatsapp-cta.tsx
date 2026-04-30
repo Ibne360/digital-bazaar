@@ -3,10 +3,8 @@ import { WHATSAPP_GROUP_URL } from "@/lib/constants";
 
 /**
  * WhatsApp support call-to-action.
- * - Compact icon-pill on mobile (≤sm)
- * - Detailed card with title + arrow on tablet/desktop
- *
- * Tap target on mobile is at least 44px high (Apple HIG / WCAG).
+ * - Mobile: compact 40x40 green icon button next to the heading (no text)
+ * - Desktop: full pill with "Live support · Join WhatsApp group" + arrow
  */
 export function WhatsAppCTA() {
   return (
@@ -14,21 +12,23 @@ export function WhatsAppCTA() {
       href={WHATSAPP_GROUP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex items-center gap-2 self-start rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 p-2.5 pr-3 text-white shadow-lg shadow-emerald-500/30 ring-1 ring-emerald-400/40 transition-all hover:-translate-y-0.5 hover:shadow-emerald-500/40 active:scale-[0.98] sm:gap-3 sm:p-3 sm:pr-4"
+      className="group inline-flex shrink-0 items-center justify-center gap-3 self-start rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/30 ring-1 ring-emerald-400/40 transition-all hover:-translate-y-0.5 hover:shadow-emerald-500/40 active:scale-[0.95] h-10 w-10 sm:h-auto sm:w-auto sm:gap-3 sm:rounded-2xl sm:p-3 sm:pr-4"
       aria-label="Join WhatsApp support group"
+      title="Join WhatsApp support"
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15 backdrop-blur sm:h-10 sm:w-10">
+      {/* Icon — always visible */}
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-10 sm:w-10 sm:rounded-lg sm:bg-white/15 sm:backdrop-blur">
         <WhatsAppIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       </span>
-      <span className="flex flex-col text-left leading-tight">
+
+      {/* Label + arrow — desktop only */}
+      <span className="hidden flex-col text-left leading-tight sm:flex">
         <span className="text-[10px] font-semibold uppercase tracking-widest text-white/80">
           Live support
         </span>
-        <span className="text-sm font-bold sm:text-[15px]">
-          Join WhatsApp group
-        </span>
+        <span className="text-[15px] font-bold">Join WhatsApp group</span>
       </span>
-      <ArrowRight className="ml-1 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+      <ArrowRight className="ml-1 hidden h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 sm:block" />
     </a>
   );
 }

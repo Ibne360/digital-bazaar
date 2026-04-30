@@ -181,6 +181,22 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
               <p className="mt-1 text-sm text-white/85">
                 Sign in to use your wallet & track orders.
               </p>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <Link
+                  href="/login"
+                  onClick={close}
+                  className="inline-flex h-10 items-center justify-center rounded-xl border border-white/30 bg-white/10 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 active:scale-[0.98]"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={close}
+                  className="inline-flex h-10 items-center justify-center rounded-xl bg-white text-sm font-bold text-violet-700 shadow-lg shadow-black/10 transition-transform active:scale-[0.98]"
+                >
+                  Get started
+                </Link>
+              </div>
             </div>
           )}
         </div>
@@ -370,23 +386,17 @@ export function MobileNav({ user, cartCount }: MobileNavProps) {
             </button>
           </div>
         ) : (
-          <div className="border-t border-border bg-card/50 p-4">
-            <div className="grid grid-cols-2 gap-2">
+          <div className="border-t border-border bg-card/50 p-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              Already a member?{" "}
               <Link
                 href="/login"
                 onClick={close}
-                className="inline-flex h-11 items-center justify-center rounded-xl border border-border bg-card text-sm font-semibold transition-colors hover:bg-accent active:scale-[0.98]"
+                className="font-semibold text-primary hover:underline"
               >
                 Sign in
               </Link>
-              <Link
-                href="/register"
-                onClick={close}
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-sm font-bold text-white shadow-md shadow-fuchsia-500/30 transition-transform active:scale-[0.98]"
-              >
-                Get started
-              </Link>
-            </div>
+            </p>
           </div>
         )}
       </aside>

@@ -7,6 +7,9 @@ export const SITE = {
   currency: "USD" as const,
 };
 
+/** Public WhatsApp group invite link for live customer support. */
+export const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/FoDA5kHvG4UBE6pBdgaXpv";
+
 export const RESELLER_COMMISSION_RATE = 0.1;
 /** Wallet uses USD. Minimum deposit / withdraw expressed in USD. */
 export const MIN_DEPOSIT = 1; // 1 USD

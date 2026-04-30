@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ScrollRestorer } from "@/components/scroll-restorer";
 import { SITE } from "@/lib/constants";
 
 // Every page in this app reads the session cookie via Supabase server client.
@@ -56,6 +57,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider>
+          <ScrollRestorer />
           <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">{children}</main>

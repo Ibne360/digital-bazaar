@@ -7,6 +7,7 @@ import {
   getStockCountByProduct,
 } from "@/lib/supabase/queries";
 import { ProductCard } from "@/components/product-card";
+import { WhatsAppCTA } from "@/components/whatsapp-cta";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -46,18 +47,21 @@ export default async function HomePage({
 
   return (
     <div className="container py-6 sm:py-10">
-      <div className="mb-5 sm:mb-7">
-        <Badge variant="outline" className="mb-2">
-          <Package className="h-3 w-3" />
-          Marketplace
-        </Badge>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-          {activeCategory ? activeCategory.name : "All products"}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
-          {products.length} product{products.length === 1 ? "" : "s"} · Instant
-          delivery · Full warranty
-        </p>
+      <div className="mb-5 flex flex-col items-start gap-3 sm:mb-7 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+        <div className="min-w-0">
+          <Badge variant="outline" className="mb-2">
+            <Package className="h-3 w-3" />
+            Marketplace
+          </Badge>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
+            {activeCategory ? activeCategory.name : "All products"}
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
+            {products.length} product{products.length === 1 ? "" : "s"} · Instant
+            delivery · Full warranty
+          </p>
+        </div>
+        <WhatsAppCTA />
       </div>
 
       <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:gap-4">

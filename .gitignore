@@ -1,0 +1,45 @@
+# ---- Dependencies ----
+node_modules/
+/.pnp
+.pnp.js
+
+# ---- Next.js build artifacts ----
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# ---- Environment / secrets ----
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.production.local
+
+# ---- Local data / dev backend ----
+data/db.json
+data/
+
+# ---- Deployment ----
+.vercel/
+.netlify/
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ---- Test / coverage ----
+coverage/
+.nyc_output/

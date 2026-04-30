@@ -39,74 +39,74 @@ export default async function DashboardPage() {
   const recentDeposits = deposits.slice(0, 5);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">
+        <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
           Welcome back, {user.name.split(" ")[0]} 👋
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm text-muted-foreground sm:text-base">
           Here&apos;s what&apos;s happening with your account.
         </p>
       </div>
 
       {/* Wallet hero */}
       <Card className="overflow-hidden border-0">
-        <div className="relative bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-6 text-white">
+        <div className="relative bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-4 text-white sm:p-6">
           <div className="absolute inset-0 bg-grid-pattern bg-[length:24px_24px] opacity-20" />
-          <div className="relative grid gap-6 md:grid-cols-2 md:items-center">
+          <div className="relative grid gap-5 md:grid-cols-2 md:items-center md:gap-6">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/70">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-white/70 sm:text-xs">
                 Wallet balance
               </p>
-              <p className="mt-2 text-5xl font-bold tracking-tight">
+              <p className="mt-1.5 text-3xl font-bold tracking-tight sm:mt-2 sm:text-4xl md:text-5xl">
                 {formatCurrency(user.walletBalance)}
               </p>
-              <p className="mt-1 text-sm text-white/80">
+              <p className="mt-1 text-xs text-white/80 sm:text-sm">
                 {user.role === "reseller"
                   ? "You see wholesale prices on every product."
                   : "Top up to checkout instantly with your wallet."}
               </p>
-              <div className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-2 sm:mt-5">
                 <Link
                   href="/dashboard/deposit"
-                  className="inline-flex h-10 items-center gap-2 rounded-lg bg-white px-4 text-sm font-semibold text-violet-700 transition-all hover:scale-[1.02]"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-sm font-semibold text-violet-700 transition-all active:scale-95 hover:scale-[1.02] sm:h-10 sm:gap-2 sm:px-4"
                 >
                   <Plus className="h-4 w-4" />
-                  Deposit funds
+                  Deposit
                 </Link>
                 <Link
                   href="/products"
-                  className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-4 text-sm font-semibold backdrop-blur transition-colors hover:bg-white/20"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/30 bg-white/10 px-3 text-sm font-semibold backdrop-blur transition-colors hover:bg-white/20 sm:h-10 sm:gap-2 sm:px-4"
                 >
-                  Shop products
+                  Shop
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur">
-                <p className="text-xs uppercase tracking-wider text-white/70">
-                  Total deposited
+            <div className="grid grid-cols-2 gap-2 text-sm sm:gap-3">
+              <div className="rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur sm:rounded-xl sm:p-3">
+                <p className="text-[10px] uppercase tracking-wider text-white/70 sm:text-xs">
+                  Deposited
                 </p>
-                <p className="mt-1 text-lg font-bold">
+                <p className="mt-0.5 text-base font-bold sm:mt-1 sm:text-lg">
                   {formatCurrency(totalDeposited)}
                 </p>
               </div>
-              <div className="rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur">
-                <p className="text-xs uppercase tracking-wider text-white/70">
-                  Total spent
+              <div className="rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur sm:rounded-xl sm:p-3">
+                <p className="text-[10px] uppercase tracking-wider text-white/70 sm:text-xs">
+                  Spent
                 </p>
-                <p className="mt-1 text-lg font-bold">
+                <p className="mt-0.5 text-base font-bold sm:mt-1 sm:text-lg">
                   {formatCurrency(totalSpent)}
                 </p>
               </div>
-              <div className="col-span-2 rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur">
-                <p className="text-xs uppercase tracking-wider text-white/70">
+              <div className="col-span-2 rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur sm:rounded-xl sm:p-3">
+                <p className="text-[10px] uppercase tracking-wider text-white/70 sm:text-xs">
                   {user.role === "reseller"
                     ? "Reseller earnings"
                     : "Reseller program"}
                 </p>
-                <p className="mt-1 text-lg font-bold">
+                <p className="mt-0.5 text-base font-bold sm:mt-1 sm:text-lg">
                   {user.role === "reseller"
                     ? formatCurrency(user.totalEarned)
                     : "Apply for wholesale"}
@@ -117,7 +117,7 @@ export default async function DashboardPage() {
         </div>
       </Card>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         <Stat
           label="Orders"
           value={orders.length}
@@ -144,7 +144,7 @@ export default async function DashboardPage() {
       {/* Reseller CTA if not enrolled */}
       {user.role !== "reseller" && user.role !== "admin" ? (
         <Card>
-          <CardContent className="flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-center">
+          <CardContent className="flex flex-col items-start justify-between gap-3 p-4 sm:flex-row sm:items-center sm:gap-4 sm:p-6">
             <div>
               <Badge variant="wholesale" className="mb-2">
                 <Sparkles className="h-3 w-3" />
@@ -158,7 +158,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/reseller/apply"
-              className={buttonVariants({ variant: "gradient", size: "lg" })}
+              className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "w-full sm:w-auto")}
             >
               Apply now
               <ArrowUpRight className="h-4 w-4" />
@@ -167,7 +167,7 @@ export default async function DashboardPage() {
         </Card>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-base">Recent orders</CardTitle>

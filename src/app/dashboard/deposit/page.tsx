@@ -52,24 +52,24 @@ export default async function DepositPage({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Wallet & Deposit</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-xl font-bold tracking-tight sm:text-2xl">Wallet & Deposit</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Top up your wallet, then buy any product instantly.
         </p>
       </div>
 
       <Card className="overflow-hidden border-0">
-        <div className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 p-5 text-white">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
+        <div className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 p-4 text-white sm:p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-white/80 sm:text-xs">
             Available balance
           </p>
-          <div className="mt-2 flex items-end justify-between">
-            <p className="text-4xl font-bold tracking-tight">
+          <div className="mt-1.5 flex items-end justify-between sm:mt-2">
+            <p className="text-3xl font-bold tracking-tight sm:text-4xl">
               {formatCurrency(user.walletBalance)}
             </p>
-            <Wallet className="h-8 w-8 opacity-70" />
+            <Wallet className="h-7 w-7 opacity-70 sm:h-8 sm:w-8" />
           </div>
         </div>
       </Card>
@@ -100,11 +100,11 @@ export default async function DepositPage({
 
       {/* Method selector tabs */}
       <Card>
-        <CardHeader>
-          <CardTitle>Choose payment method</CardTitle>
+        <CardHeader className="pb-3 sm:pb-6">
+          <CardTitle className="text-base sm:text-lg">Choose payment method</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-3 md:grid-cols-6">
             {DEPOSIT_METHODS.map((m) => (
               <Link
                 key={m.id}
@@ -119,24 +119,24 @@ export default async function DepositPage({
               >
                 <div
                   className={cn(
-                    "flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br text-white",
+                    "flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br text-white sm:h-9 sm:w-9",
                     m.color,
                   )}
                 >
                   {m.label[0]}
                 </div>
-                {m.label}
+                <span className="text-[11px] sm:text-xs">{m.label}</span>
               </Link>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         {/* Deposit form */}
         <Card>
-          <CardHeader>
-            <CardTitle>Submit deposit request</CardTitle>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-base sm:text-lg">Submit deposit request</CardTitle>
           </CardHeader>
           <CardContent>
             <form action={actionRequestDeposit} className="space-y-4">
@@ -230,8 +230,8 @@ export default async function DepositPage({
 
         {/* History */}
         <Card>
-          <CardHeader>
-            <CardTitle>Deposit history</CardTitle>
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-base sm:text-lg">Deposit history</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {myDeposits.length === 0 ? (

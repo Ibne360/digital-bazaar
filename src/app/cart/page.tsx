@@ -58,9 +58,9 @@ export default async function CartPage({
   const needed = Math.max(0, view.total - (user?.walletBalance || 0));
 
   return (
-    <div className="container py-6 sm:py-10">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">Your cart</h1>
-      <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
+    <div className="container py-5 sm:py-10">
+      <h1 className="text-xl font-bold tracking-tight sm:text-3xl md:text-4xl">Your cart</h1>
+      <p className="mt-1 text-xs text-muted-foreground sm:mt-2 sm:text-base">
         {view.lines.length} item{view.lines.length === 1 ? "" : "s"} ·
         {view.isReseller ? " Wholesale tier" : " Retail pricing"}
       </p>
@@ -105,7 +105,7 @@ export default async function CartPage({
                     <form action={actionUpdateCart.bind(null, line.product.id, line.quantity - 1)}>
                       <button
                         type="submit"
-                        className="flex h-7 w-7 items-center justify-center rounded-md border border-border text-sm hover:bg-accent"
+                        className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-base hover:bg-accent active:scale-95 sm:h-7 sm:w-7 sm:text-sm"
                         aria-label="Decrease"
                       >
                         −
@@ -117,7 +117,7 @@ export default async function CartPage({
                     <form action={actionUpdateCart.bind(null, line.product.id, line.quantity + 1)}>
                       <button
                         type="submit"
-                        className="flex h-7 w-7 items-center justify-center rounded-md border border-border text-sm hover:bg-accent"
+                        className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-base hover:bg-accent active:scale-95 sm:h-7 sm:w-7 sm:text-sm"
                         aria-label="Increase"
                       >
                         +

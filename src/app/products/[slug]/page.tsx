@@ -95,8 +95,8 @@ export default async function ProductDetailPage({
   const addToCart = actionAddToCart.bind(null, product.id, 1);
 
   return (
-    <div className="container py-10">
-      <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
+    <div className="container py-5 sm:py-10">
+      <nav className="mb-5 flex items-center gap-2 overflow-x-auto whitespace-nowrap text-xs text-muted-foreground sm:mb-8 sm:text-sm">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span>/</span>
         <Link href="/products" className="hover:text-foreground">Products</Link>
@@ -113,13 +113,13 @@ export default async function ProductDetailPage({
         ) : null}
       </nav>
 
-      <div className="grid gap-10 lg:grid-cols-2">
+      <div className="grid gap-6 sm:gap-10 lg:grid-cols-2">
         {/* Visual */}
         <div>
           <div
             className={cn(
-              "relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl",
-              !product.imageUrl && `bg-gradient-to-br p-12 ${product.iconBg}`,
+              "relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl sm:aspect-square sm:rounded-3xl",
+              !product.imageUrl && `bg-gradient-to-br p-8 sm:p-12 ${product.iconBg}`,
               product.imageUrl && "bg-muted",
             )}
           >
@@ -133,10 +133,10 @@ export default async function ProductDetailPage({
             ) : (
               <>
                 <div className="absolute inset-0 bg-grid-pattern bg-[length:32px_32px] opacity-30" />
-                <Icon className="relative h-32 w-32 text-white drop-shadow-lg" />
+                <Icon className="relative h-20 w-20 text-white drop-shadow-lg sm:h-32 sm:w-32" />
               </>
             )}
-            <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+            <div className="absolute left-3 top-3 flex flex-wrap gap-1.5 sm:left-4 sm:top-4 sm:gap-2">
               {product.badges.map((b) => {
                 const meta = BADGE_META[b];
                 if (!meta) return null;
@@ -151,7 +151,7 @@ export default async function ProductDetailPage({
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3">
             {[
               { Icon: Zap, label: "Delivery", value: "<60 sec" },
               { Icon: ShieldCheck, label: "Warranty", value: product.warranty.split(" ")[0] },
@@ -159,13 +159,13 @@ export default async function ProductDetailPage({
             ].map(({ Icon: I, label, value }) => (
               <div
                 key={label}
-                className="rounded-xl border border-border bg-card p-3 text-center"
+                className="rounded-lg border border-border bg-card p-2.5 text-center sm:rounded-xl sm:p-3"
               >
                 <I className="mx-auto h-4 w-4 text-primary" />
-                <p className="mt-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+                <p className="mt-1 text-[9px] uppercase tracking-wider text-muted-foreground sm:mt-1.5 sm:text-[10px]">
                   {label}
                 </p>
-                <p className="mt-0.5 text-sm font-semibold">{value}</p>
+                <p className="mt-0.5 text-xs font-semibold sm:text-sm">{value}</p>
               </div>
             ))}
           </div>
@@ -174,17 +174,17 @@ export default async function ProductDetailPage({
         {/* Info & buy box */}
         <div className="flex flex-col">
           {category ? (
-            <Badge variant="outline" className="mb-3 w-fit">
+            <Badge variant="outline" className="mb-2.5 w-fit sm:mb-3">
               {category.name}
             </Badge>
           ) : null}
-          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
             {product.name}
           </h1>
-          <p className="mt-3 text-muted-foreground">{product.shortDescription}</p>
+          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">{product.shortDescription}</p>
 
-          <div className="mt-6 flex items-baseline gap-3">
-            <span className="text-4xl font-bold tracking-tight">
+          <div className="mt-4 flex flex-wrap items-baseline gap-2 sm:mt-6 sm:gap-3">
+            <span className="text-3xl font-bold tracking-tight sm:text-4xl">
               {formatCurrency(price)}
             </span>
             {!isReseller && savings > 0 ? (
@@ -202,7 +202,7 @@ export default async function ProductDetailPage({
             ) : null}
           </div>
 
-          <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground sm:gap-x-4">
             <span className="flex items-center gap-1">
               <Clock className="h-3 w-3" />
               {product.duration}
@@ -217,8 +217,8 @@ export default async function ProductDetailPage({
             </span>
           </div>
 
-          <Card className="mt-6 border-2">
-            <CardContent className="space-y-4 pt-6">
+          <Card className="mt-5 border-2 sm:mt-6">
+            <CardContent className="space-y-3 pt-5 sm:space-y-4 sm:pt-6">
               {user ? (
                 <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm">
                   <div className="flex items-center justify-between">
@@ -287,7 +287,7 @@ export default async function ProductDetailPage({
       </div>
 
       {/* Description */}
-      <div className="mt-12 grid gap-6 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>About this product</CardTitle>
@@ -328,9 +328,9 @@ export default async function ProductDetailPage({
 
       {/* Related */}
       {related.length > 0 ? (
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold tracking-tight">You might also like</h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 sm:mt-16">
+          <h2 className="text-xl font-bold tracking-tight sm:text-2xl">You might also like</h2>
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-5 lg:grid-cols-4">
             {related.map((p) => (
               <ProductCard
                 key={p.id}

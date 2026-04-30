@@ -273,9 +273,9 @@ function ApplicationStatus({
 
 function Apply() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       <Card className="overflow-hidden border-0">
-        <div className="relative bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-8 text-white">
+        <div className="relative bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-5 text-white sm:p-8">
           <div className="absolute inset-0 bg-grid-pattern bg-[length:24px_24px] opacity-20" />
           <div className="relative">
             <Badge
@@ -285,16 +285,16 @@ function Apply() {
               <Crown className="h-3 w-3" />
               Reseller program
             </Badge>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight">
+            <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
               Become a Digital Bazaar reseller
             </h1>
-            <p className="mt-2 max-w-xl text-white/85">
+            <p className="mt-2 max-w-xl text-sm text-white/85 sm:text-base">
               Get wholesale prices (25-45% off retail), generate referral links,
               earn 10% commission on referrals, and withdraw to bKash / bank /
               USDT. Free to apply, no monthly fees.
             </p>
 
-            <ul className="mt-6 grid gap-2 text-sm text-white/90 sm:grid-cols-2">
+            <ul className="mt-5 grid gap-2 text-sm text-white/90 sm:mt-6 sm:grid-cols-2">
               {[
                 "Wholesale price on every product",
                 "10% commission on every referral sale",
@@ -308,11 +308,11 @@ function Apply() {
               ))}
             </ul>
 
-            <form action={actionApplyReseller} className="mt-6">
+            <form action={actionApplyReseller} className="mt-5 sm:mt-6">
               <SubmitButton
                 variant="default"
                 size="lg"
-                className="bg-white text-violet-700 hover:bg-white/90"
+                className="w-full bg-white text-violet-700 hover:bg-white/90 sm:w-auto"
               >
                 <ShieldCheck className="h-4 w-4" />
                 Apply for reseller status
@@ -322,19 +322,19 @@ function Apply() {
         </div>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
         {[
           { Icon: Crown, title: "Wholesale catalog", text: "Buy at 25-45% below retail and resell on your own platform." },
           { Icon: TrendingUp, title: "Earnings tracking", text: "Live wallet, conversion rates and best-seller analytics." },
           { Icon: ShieldCheck, title: "Brand protection", text: "Replacement guarantee covers all your end-customers too." },
         ].map(({ Icon, title, text }) => (
           <Card key={title}>
-            <CardContent className="p-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <Icon className="h-5 w-5" />
+            <CardContent className="p-4 sm:p-5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary sm:h-10 sm:w-10">
+                <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <p className="mt-3 font-semibold">{title}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+              <p className="mt-2.5 text-sm font-semibold sm:mt-3 sm:text-base">{title}</p>
+              <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{text}</p>
             </CardContent>
           </Card>
         ))}

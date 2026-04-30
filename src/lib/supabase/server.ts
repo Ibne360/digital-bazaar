@@ -1,4 +1,5 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -46,9 +47,6 @@ export function createSupabaseAdminClient() {
       "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local",
     );
   }
-  // Lazy-import to avoid bundling supabase-js into the browser
-  // (createServerClient bundle is fine; this is admin-only)
-  const { createClient } = require("@supabase/supabase-js");
   return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE, {
     auth: { autoRefreshToken: false, persistSession: false },
   });

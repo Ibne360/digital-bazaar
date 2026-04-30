@@ -17,8 +17,8 @@ export default async function LoginPage({
   if (await getCurrentUser()) redirect(searchParams?.next || "/dashboard");
 
   return (
-    <div className="container flex min-h-[80vh] items-center justify-center py-12">
-      <div className="grid w-full max-w-5xl gap-10 md:grid-cols-2">
+    <div className="container flex items-center justify-center py-6 sm:py-10 md:min-h-[calc(100vh-180px)] md:py-12">
+      <div className="grid w-full max-w-5xl gap-6 md:grid-cols-2 md:gap-10">
         <div className="hidden flex-col justify-between rounded-3xl border border-border bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-10 text-white md:flex">
           <div>
             <div className="flex items-center gap-2">

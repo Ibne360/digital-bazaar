@@ -35,14 +35,14 @@ export default async function CartPage({
 
   if (view.lines.length === 0) {
     return (
-      <div className="container py-16">
+      <div className="container flex min-h-[calc(100vh-220px)] items-center justify-center py-8 sm:py-12">
         <EmptyState
           icon={<ShoppingCart className="h-6 w-6" />}
           title="Your cart is empty"
           description="Browse the marketplace and add a product to checkout instantly with your wallet balance."
           action={
             <Link
-              href="/products"
+              href="/"
               className={buttonVariants({ variant: "gradient", size: "lg" })}
             >
               Browse products
